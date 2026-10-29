@@ -1,38 +1,81 @@
+import { useState, type ChangeEvent } from "react";
+
 const TestControls = () => {
+  const [difficulty, setDifficulty] = useState("Easy");
+  const [mode, setMode] = useState("Timed(60s)");
+
+  const difficulties = ["Easy", "Medium", "Hard"];
+  const modes = ["Timed(60s)", "Passage"];
+
   return (
     <>
+      {/* MOBILE VERSION */}
       <div className="row border-bottom border-secondary py-4 d-lg-none p-2">
         <div className="col-6">
           <select
             className="form-select d-flex fs-6 p-1 bg-dark text-white"
             aria-label="Large select example"
+            defaultValue={"Easy"}
+            onChange={(e) => setDifficulty(e.target.value)}
           >
-            <option defaultValue={1}>Hard</option>
-            <option value="2">Medium</option>
-            <option value="3">Easy</option>
+            {difficulties.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
           </select>
         </div>
         <div className="col-6">
           <select
             className="form-select fs-6 p-1 bg-dark text-white"
             aria-label="Large select example"
+            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+              setMode(e.target.value)
+            }
           >
-            <option defaultValue={0}>Timed (60s)</option>
-            <option value="1">Passage</option>
+            {modes.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
           </select>
         </div>
       </div>
+
+      {/* DESKTOP VERSION */}
       <div className="d-none d-lg-flex align-items-center gap-2">
         <p className="text-secondary mb-0">Difficulty:</p>
-        <p className="text-white mb-0 border rounded-3 p-1">Easy</p>
-        <p className="text-white mb-0 border rounded-3 p-1">Medium</p>
-        <p className="text-white mb-0 border rounded-3 p-1">Hard</p>
+        {difficulties.map((item) => (
+          <button
+            key={item}
+            onClick={() => setDifficulty(item)}
+            className={`btn  ${
+              difficulty === item
+                ? "border-primary text-primary"
+                : "border-secondary text-white"
+            }`}
+          >
+            {item}
+          </button>
+        ))}
 
         <div className="border-secondary mx-1 align-self-stretch"></div>
 
         <p className="text-secondary mb-0 ">Mode:</p>
-        <p className="text-white mb-0 border rounded-3 p-1 ">Timed(60s)</p>
-        <p className="text-white mb-0 border rounded-3 p-1">Passage</p>
+
+        {modes.map((item) => (
+          <button
+            key={item}
+            onClick={() => setMode(item)}
+            className={`btn  ${
+              mode === item
+                ? "border-primary text-primary"
+                : "border-secondary text-white"
+            }`}
+          >
+            {item}
+          </button>
+        ))}
       </div>
     </>
   );
