@@ -1,9 +1,16 @@
-import { useState, type ChangeEvent } from "react";
+type HomepageProps = {
+  difficulty: string;
+  setDifficulty: React.Dispatch<React.SetStateAction<string>>;
+  mode: string;
+  setMode: React.Dispatch<React.SetStateAction<string>>;
+};
 
-const TestControls = () => {
-  const [difficulty, setDifficulty] = useState("Easy");
-  const [mode, setMode] = useState("Timed(60s)");
-
+const TestControls = ({
+  difficulty,
+  setDifficulty,
+  mode,
+  setMode,
+}: HomepageProps) => {
   const difficulties = ["Easy", "Medium", "Hard"];
   const modes = ["Timed(60s)", "Passage"];
 
@@ -29,9 +36,7 @@ const TestControls = () => {
           <select
             className="form-select fs-6 p-1 bg-dark text-white"
             aria-label="Large select example"
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              setMode(e.target.value)
-            }
+            onChange={(e) => setMode(e.target.value)}
           >
             {modes.map((item) => (
               <option key={item} value={item}>
