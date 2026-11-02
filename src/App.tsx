@@ -2,22 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
 import { useEffect, useState } from "react";
-
-type Paragraph = {
-  id: string;
-  text: string;
-};
-
-type ParagraphData = {
-  easy: Paragraph[];
-  medium: Paragraph[];
-  hard: Paragraph[];
-};
-
-type Difficulty = "easy" | "medium" | "hard";
+import type { Difficulty, Paragraph, ParagraphData } from "./types/types";
 
 function App() {
-  const [difficulty, setDifficulty] = useState("Easy");
+  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   const [mode, setMode] = useState("Timed(60s)");
   const [paragraphs, setParagraphs] = useState<ParagraphData>({
     easy: [],
@@ -40,8 +28,16 @@ function App() {
     fetchParagraphs();
   }, []);
 
-  const getRandomParagraph = (difficulty: Difficulty) => {
+  const getRandomParagraph: (
+    difficulty: Difficulty,
+  ) => Paragraph | undefined = (difficulty: Difficulty) => {
     const selectedParagraphs: Paragraph[] | undefined = paragraphs[difficulty];
+
+    if (!selectedParagraphs || selectedParagraphs.length === 0) {
+      console.log("No paragraphs found for:", difficulty);
+      return undefined;
+    }
+
     const randomIndex = Math.floor(Math.random() * selectedParagraphs.length);
     const randomParagraph = selectedParagraphs[randomIndex];
     return randomParagraph;
@@ -58,6 +54,7 @@ function App() {
               setDifficulty={setDifficulty}
               mode={mode}
               setMode={setMode}
+              onStartButtonClick={getRandomParagraph}
             />
           }
         />

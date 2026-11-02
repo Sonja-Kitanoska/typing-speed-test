@@ -1,17 +1,16 @@
-type HomepageProps = {
-  difficulty: string;
-  setDifficulty: React.Dispatch<React.SetStateAction<string>>;
-  mode: string;
-  setMode: React.Dispatch<React.SetStateAction<string>>;
-};
+import type { Difficulty, TestcontrolsProps } from "../../types/types";
 
 const TestControls = ({
   difficulty,
   setDifficulty,
   mode,
   setMode,
-}: HomepageProps) => {
-  const difficulties = ["Easy", "Medium", "Hard"];
+}: TestcontrolsProps) => {
+  const difficulties: { label: string; value: Difficulty }[] = [
+    { label: "Easy", value: "easy" },
+    { label: "Medium", value: "medium" },
+    { label: "Hard", value: "hard" },
+  ];
   const modes = ["Timed(60s)", "Passage"];
 
   return (
@@ -22,12 +21,12 @@ const TestControls = ({
           <select
             className="form-select d-flex fs-6 p-1 bg-dark text-white"
             aria-label="Large select example"
-            defaultValue={"Easy"}
-            onChange={(e) => setDifficulty(e.target.value)}
+            defaultValue={difficulty}
+            onChange={(e) => setDifficulty(e.target.value as Difficulty)}
           >
             {difficulties.map((item) => (
-              <option key={item} value={item}>
-                {item}
+              <option key={item.value} value={item.value}>
+                {item.label}
               </option>
             ))}
           </select>
@@ -52,15 +51,15 @@ const TestControls = ({
         <p className="text-secondary mb-0">Difficulty:</p>
         {difficulties.map((item) => (
           <button
-            key={item}
-            onClick={() => setDifficulty(item)}
+            key={item.value}
+            onClick={() => setDifficulty(item.value)}
             className={`btn  ${
-              difficulty === item
+              difficulty === item.value
                 ? "border-primary text-primary"
                 : "border-secondary text-white"
             }`}
           >
-            {item}
+            {item.label}
           </button>
         ))}
 
