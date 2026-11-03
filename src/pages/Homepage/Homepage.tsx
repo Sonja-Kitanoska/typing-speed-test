@@ -1,24 +1,17 @@
-import { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { StartTyping } from "../../components/StartTyping/StartTyping";
 import TestControls from "../../components/TestControls/TestControls";
 import TypingStats from "../../components/TypingStats/TypingStats";
-import type { HomepageProps, Paragraph } from "../../types/types";
+import type { HomepageProps } from "../../types/types";
 
 const Homepage = ({
   difficulty,
   setDifficulty,
   mode,
   setMode,
-  onStartButtonClick,
+  handleStart,
+  paragraph,
 }: HomepageProps) => {
-  const [paragraph, setParagraph] = useState<Paragraph | undefined>(undefined);
-
-  const handleStart = () => {
-    const paragraph = onStartButtonClick(difficulty);
-    setParagraph(paragraph);
-  };
-
   return (
     <div className="bg-dark min-vh-100 d-flex flex-column">
       <Navbar />
@@ -29,14 +22,11 @@ const Homepage = ({
           setDifficulty={setDifficulty}
           mode={mode}
           setMode={setMode}
+          handleStart={handleStart}
         />
       </div>
 
-      {paragraph ? (
-        <p className="text-white">{paragraph.text}</p>
-      ) : (
-        <StartTyping handleStart={handleStart} />
-      )}
+      <StartTyping paragraph={paragraph} />
     </div>
   );
 };

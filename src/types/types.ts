@@ -16,7 +16,9 @@ export type HomepageProps = {
   setDifficulty: React.Dispatch<React.SetStateAction<Difficulty>>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  onStartButtonClick: (difficulty: Difficulty) => Paragraph | undefined;
+  handleStart: (selectedDifficulty?: Difficulty) => void;
+  paragraph: Paragraph | undefined;
+  // getRandomParagraph: (difficulty: Difficulty) => Paragraph | undefined;
 };
 
 export type TestcontrolsProps = {
@@ -24,8 +26,14 @@ export type TestcontrolsProps = {
   setDifficulty: React.Dispatch<React.SetStateAction<Difficulty>>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
+  handleStart: (selectedDifficulty?: Difficulty) => void;
 };
 
-export type StartTypingProps = {
-  handleStart: () => void;
+export type TypingTestProps = {
+  difficulty: Difficulty;
+  setDifficulty: React.Dispatch<React.SetStateAction<Difficulty>>;
+  mode: string;
+  setMode: React.Dispatch<React.SetStateAction<string>>;
+  handleStart: (selectedDifficulty?: Difficulty) => void;
+  paragraph: Paragraph | undefined;
 };

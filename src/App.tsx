@@ -3,6 +3,7 @@ import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
 import { useEffect, useState } from "react";
 import type { Difficulty, Paragraph, ParagraphData } from "./types/types";
+import TypingTest from "./pages/TypingTest/TypingTest";
 
 function App() {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
@@ -12,6 +13,7 @@ function App() {
     medium: [],
     hard: [],
   });
+  const [paragraph, setParagraph] = useState<Paragraph | undefined>(undefined);
 
   useEffect(() => {
     const fetchParagraphs = async () => {
@@ -43,6 +45,16 @@ function App() {
     return randomParagraph;
   };
 
+  const handleStart = (selectedDifficulty = difficulty) => {
+    const paragraph = getRandomParagraph(difficulty);
+    setParagraph(paragraph);
+  };
+
+  useEffect(() => {
+    const randomParagraph = getRandomParagraph(difficulty);
+    setParagraph(randomParagraph);
+  }, [difficulty, getRandomParagraph]);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -54,7 +66,21 @@ function App() {
               setDifficulty={setDifficulty}
               mode={mode}
               setMode={setMode}
-              onStartButtonClick={getRandomParagraph}
+              handleStart={handleStart}
+              paragraph={paragraph}
+            />
+          }
+        />
+        <Route
+          path="/typing-test"
+          element={
+            <TypingTest
+              difficulty={difficulty}
+              setDifficulty={setDifficulty}
+              mode={mode}
+              setMode={setMode}
+              handleStart={handleStart}
+              paragraph={paragraph}
             />
           }
         />
