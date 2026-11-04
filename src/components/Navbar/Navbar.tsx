@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <nav className="d-flex justify-content-between py-2 container bg-dark">
+    <nav className="d-flex justify-content-between py-2 container bg-black">
       <div>
         <img
           src=".../../assets/images/logo-small.svg"

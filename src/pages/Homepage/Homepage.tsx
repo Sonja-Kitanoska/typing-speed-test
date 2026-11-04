@@ -12,7 +12,7 @@ const Homepage = ({
   paragraph,
 }: HomepageProps) => {
   return (
-    <div className="bg-dark min-vh-100 d-flex flex-column">
+    <div className="bg-black min-vh-100 d-flex flex-column">
       <Navbar />
       <div className="d-lg-flex p-2">
         <TypingStats />

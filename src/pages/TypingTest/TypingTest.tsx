@@ -11,7 +11,7 @@ const TypingTest = ({
   paragraph,
 }: TypingTestProps) => {
   return (
-    <div className="bg-dark min-vh-100 d-flex flex-column">
+    <div className="bg-black min-vh-100 d-flex flex-column">
       <Navbar />
       <div className="d-lg-flex p-2">
         <TypingStats />
@@ -24,8 +24,18 @@ const TypingTest = ({
       </div>
 
       <div className="container flex-grow-1 d-flex flex-column">
-        <div>
-          <p className="text-white py-3 fs-3">{paragraph?.text}</p>
+        <div className="border-bottom border-secondary">
+          <p className="py-3 fs-3 text-secondary">{paragraph?.text}</p>
+        </div>
+        <div className="p-3 d-flex justify-content-center">
+          <button className="btn btn-dark d-flex gap-1">
+            <span>Restart Test</span>
+            <img
+              src="../../../assets/images/icon-restart.svg"
+              alt="Restart icon"
+              style={{ width: "17px", height: "auto" }}
+            />
+          </button>
         </div>
       </div>
     </div>
