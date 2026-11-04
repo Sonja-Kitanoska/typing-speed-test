@@ -5,7 +5,7 @@ const TestControls = ({
   setDifficulty,
   mode,
   setMode,
-  handleStart,
+  getRandomParagraph,
 }: TestcontrolsProps) => {
   const difficulties: { label: string; value: Difficulty }[] = [
     { label: "Easy", value: "easy" },
@@ -26,7 +26,7 @@ const TestControls = ({
             onChange={(e) => {
               const selectedDifficulty = e.target.value as Difficulty;
               setDifficulty(selectedDifficulty);
-              handleStart(selectedDifficulty);
+              getRandomParagraph(selectedDifficulty);
             }}
           >
             {difficulties.map((item) => (
@@ -59,7 +59,7 @@ const TestControls = ({
             key={item.value}
             onClick={() => {
               setDifficulty(item.value);
-              handleStart(item.value);
+              getRandomParagraph(item.value);
             }}
             className={`btn  ${
               difficulty === item.value

@@ -30,30 +30,25 @@ function App() {
     fetchParagraphs();
   }, []);
 
-  const getRandomParagraph: (
+  const getRandomParagraph: (difficulty: Difficulty) => void = (
     difficulty: Difficulty,
-  ) => Paragraph | undefined = (difficulty: Difficulty) => {
+  ) => {
     const selectedParagraphs: Paragraph[] | undefined = paragraphs[difficulty];
 
     if (!selectedParagraphs || selectedParagraphs.length === 0) {
       console.log("No paragraphs found for:", difficulty);
-      return undefined;
+      return;
     }
 
     const randomIndex = Math.floor(Math.random() * selectedParagraphs.length);
     const randomParagraph = selectedParagraphs[randomIndex];
-    return randomParagraph;
-  };
-
-  const handleStart = (selectedDifficulty = difficulty) => {
-    const paragraph = getRandomParagraph(difficulty);
-    setParagraph(paragraph);
+    setParagraph(randomParagraph);
   };
 
   useEffect(() => {
-    const randomParagraph = getRandomParagraph(difficulty);
-    setParagraph(randomParagraph);
-  }, [difficulty, getRandomParagraph]);
+    if (paragraphs[difficulty].length === 0) return;
+    getRandomParagraph(difficulty);
+  }, [paragraphs, difficulty]);
 
   return (
     <BrowserRouter>
@@ -66,7 +61,7 @@ function App() {
               setDifficulty={setDifficulty}
               mode={mode}
               setMode={setMode}
-              handleStart={handleStart}
+              getRandomParagraph={getRandomParagraph}
               paragraph={paragraph}
             />
           }
@@ -79,7 +74,7 @@ function App() {
               setDifficulty={setDifficulty}
               mode={mode}
               setMode={setMode}
-              handleStart={handleStart}
+              getRandomParagraph={getRandomParagraph}
               paragraph={paragraph}
             />
           }

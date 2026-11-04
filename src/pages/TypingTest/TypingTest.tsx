@@ -8,7 +8,7 @@ const TypingTest = ({
   setDifficulty,
   mode,
   setMode,
-  handleStart,
+  getRandomParagraph,
   paragraph,
 }: TypingTestProps) => {
   return (
@@ -21,7 +21,7 @@ const TypingTest = ({
           setDifficulty={setDifficulty}
           mode={mode}
           setMode={setMode}
-          handleStart={handleStart}
+          getRandomParagraph={getRandomParagraph}
         />
       </div>
 
