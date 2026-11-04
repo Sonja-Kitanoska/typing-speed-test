@@ -9,7 +9,6 @@ const Homepage = ({
   setDifficulty,
   mode,
   setMode,
-  getRandomParagraph,
   paragraph,
 }: HomepageProps) => {
   return (
@@ -22,7 +21,6 @@ const Homepage = ({
           setDifficulty={setDifficulty}
           mode={mode}
           setMode={setMode}
-          getRandomParagraph={getRandomParagraph}
         />
       </div>
 

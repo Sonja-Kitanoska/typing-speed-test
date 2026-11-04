@@ -61,7 +61,6 @@ function App() {
               setDifficulty={setDifficulty}
               mode={mode}
               setMode={setMode}
-              getRandomParagraph={getRandomParagraph}
               paragraph={paragraph}
             />
           }
@@ -74,7 +73,6 @@ function App() {
               setDifficulty={setDifficulty}
               mode={mode}
               setMode={setMode}
-              getRandomParagraph={getRandomParagraph}
               paragraph={paragraph}
             />
           }
