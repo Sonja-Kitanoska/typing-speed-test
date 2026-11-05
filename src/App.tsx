@@ -50,6 +50,64 @@ function App() {
     getRandomParagraph(difficulty);
   }, [paragraphs, difficulty]);
 
+  // // Start timer when the user begins typing
+  // const handleStart = () => {
+  //   if (!isFinished) {
+  //     setIsRunning(true);
+  //   }
+  // };
+
+  // // Stop timer when passage is completed
+  // const handleFinish = () => {
+  //   setIsRunning(false);
+  //   setIsFinished(true);
+  // };
+
+  // // Reset timer when mode or paragraph changes
+  // useEffect(() => {
+  //   setIsRunning(false);
+  //   setIsFinished(false);
+  //   setTimer(mode === "Timed(60s)" ? 60 : 0);
+  // }, [mode, paragraph]);
+
+  // // Timer logic
+  // useEffect(() => {
+  //   if (!isRunning || isFinished) return;
+
+  //   const interval = setInterval(() => {
+  //     setTimer((prev) => {
+  //       if (mode === "Timed(60s)") {
+  //         return Math.max(0, prev - 1);
+  //       }
+
+  //       return prev + 1;
+  //     });
+  //   }, 1000);
+
+  //   return () => clearInterval(interval);
+  // }, [isRunning, isFinished, mode]);
+
+  // // End timed test when timer reaches zero
+  // useEffect(() => {
+  //   if (mode === "Timed(60s)" && timer === 0 && isRunning) {
+  //     setIsRunning(false);
+  //     setIsFinished(true);
+  //   }
+  // }, [timer, mode, isRunning]);
+
+  // const handleTyping = (value: string) => {
+  //   if (isFinished) return;
+
+  //   if (!isRunning) {
+  //     handleStart();
+  //   }
+
+  //   setTypedText(value);
+
+  //   if (value.length >= (paragraph?.text.length ?? 0)) {
+  //     handleFinish();
+  //   }
+
   return (
     <BrowserRouter>
       <Routes>

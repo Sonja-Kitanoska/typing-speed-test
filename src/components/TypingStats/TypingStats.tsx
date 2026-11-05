@@ -1,4 +1,16 @@
-const TypingStats = () => {
+import type { TypingStatsProps } from "../../types/types";
+
+const TypingStats = ({ mode }: TypingStatsProps) => {
+  const time = mode === "Timed(60s)" ? 60 : 0;
+
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+
+  const formattedTime =
+    mode === "Timed(60s)"
+      ? `0:${time.toString().padStart(2, "0")}`
+      : `${minutes}:${seconds.toString().padStart(2, "0")}`;
+
   return (
     <div className="container d-lg-flex justify-content-between text-center">
       <div className="d-flex row pt-4 pt-md-0 text-center">
@@ -12,7 +24,7 @@ const TypingStats = () => {
         </div>
         <div className="col-4 col-lg-auto d-lg-flex align-items-center p-2">
           <p className="text-secondary mb-0">Time:</p>
-          <p className="text-white mb-0">60</p>
+          <p className="text-white mb-0">{formattedTime}</p>
         </div>
       </div>
     </div>

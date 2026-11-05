@@ -15,7 +15,7 @@ const Homepage = ({
     <div className="bg-black min-vh-100 d-flex flex-column">
       <Navbar />
       <div className="d-lg-flex p-2">
-        <TypingStats />
+        <TypingStats mode={mode} />
         <TestControls
           difficulty={difficulty}
           setDifficulty={setDifficulty}

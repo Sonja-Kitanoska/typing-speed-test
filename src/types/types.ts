@@ -25,6 +25,7 @@ export type TestcontrolsProps = {
   setDifficulty: React.Dispatch<React.SetStateAction<Difficulty>>;
   mode: Mode;
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
+  disabled?: boolean;
 };
 
 export type TypingTestProps = {
@@ -34,3 +35,7 @@ export type TypingTestProps = {
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
   paragraph: Paragraph | undefined;
 };
+
+export interface TypingStatsProps {
+  mode: Mode;
+}
