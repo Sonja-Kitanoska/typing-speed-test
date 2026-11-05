@@ -24,8 +24,10 @@ const TypingTest = ({
       </div>
 
       <div className="container flex-grow-1 d-flex flex-column">
-        <div className="border-bottom border-secondary">
-          <p className="py-3 fs-3 text-secondary">{paragraph?.text}</p>
+        <div className="border-bottom border-secondary overflow-auto">
+          <p className="py-3 fs-3 text-secondary" style={{ height: "50vh" }}>
+            {paragraph?.text}
+          </p>
         </div>
         <div className="p-3 d-flex justify-content-center">
           <button className="btn btn-dark d-flex gap-1">

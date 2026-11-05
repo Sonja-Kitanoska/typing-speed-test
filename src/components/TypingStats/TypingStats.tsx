@@ -12,7 +12,7 @@ const TypingStats = () => {
         </div>
         <div className="col-4 col-lg-auto d-lg-flex align-items-center p-2">
           <p className="text-secondary mb-0">Time:</p>
-          <p className="text-white mb-0">0:60</p>
+          <p className="text-white mb-0">60</p>
         </div>
       </div>
     </div>

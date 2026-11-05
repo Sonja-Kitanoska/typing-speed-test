@@ -4,6 +4,7 @@ export type Paragraph = {
 };
 
 export type Difficulty = "easy" | "medium" | "hard";
+export type Mode = "Timed(60s)" | "Passage";
 
 export type ParagraphData = {
   easy: Paragraph[];
@@ -14,22 +15,22 @@ export type ParagraphData = {
 export type HomepageProps = {
   difficulty: Difficulty;
   setDifficulty: React.Dispatch<React.SetStateAction<Difficulty>>;
-  mode: string;
-  setMode: React.Dispatch<React.SetStateAction<string>>;
+  mode: Mode;
+  setMode: React.Dispatch<React.SetStateAction<Mode>>;
   paragraph: Paragraph | undefined;
 };
 
 export type TestcontrolsProps = {
   difficulty: Difficulty;
   setDifficulty: React.Dispatch<React.SetStateAction<Difficulty>>;
-  mode: string;
-  setMode: React.Dispatch<React.SetStateAction<string>>;
+  mode: Mode;
+  setMode: React.Dispatch<React.SetStateAction<Mode>>;
 };
 
 export type TypingTestProps = {
   difficulty: Difficulty;
   setDifficulty: React.Dispatch<React.SetStateAction<Difficulty>>;
-  mode: string;
-  setMode: React.Dispatch<React.SetStateAction<string>>;
+  mode: Mode;
+  setMode: React.Dispatch<React.SetStateAction<Mode>>;
   paragraph: Paragraph | undefined;
 };

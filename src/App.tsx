@@ -2,12 +2,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
 import { useEffect, useState } from "react";
-import type { Difficulty, Paragraph, ParagraphData } from "./types/types";
+import type { Difficulty, Mode, Paragraph, ParagraphData } from "./types/types";
 import TypingTest from "./pages/TypingTest/TypingTest";
 
 function App() {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
-  const [mode, setMode] = useState("Timed(60s)");
+  const [mode, setMode] = useState<Mode>("Timed(60s)");
   const [paragraphs, setParagraphs] = useState<ParagraphData>({
     easy: [],
     medium: [],

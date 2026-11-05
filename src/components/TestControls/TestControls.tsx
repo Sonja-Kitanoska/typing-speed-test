@@ -1,4 +1,4 @@
-import type { Difficulty, TestcontrolsProps } from "../../types/types";
+import type { Difficulty, Mode, TestcontrolsProps } from "../../types/types";
 
 const TestControls = ({
   difficulty,
@@ -38,7 +38,7 @@ const TestControls = ({
           <select
             className="form-select fs-6 p-1 bg-dark text-white"
             aria-label="Large select example"
-            onChange={(e) => setMode(e.target.value)}
+            onChange={(e) => setMode(e.target.value as Mode)}
           >
             {modes.map((item) => (
               <option key={item} value={item}>
@@ -75,7 +75,7 @@ const TestControls = ({
         {modes.map((item) => (
           <button
             key={item}
-            onClick={() => setMode(item)}
+            onClick={() => setMode(item as Mode)}
             className={`btn  ${
               mode === item
                 ? "border-primary text-primary"
