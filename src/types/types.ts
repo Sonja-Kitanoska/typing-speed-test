@@ -34,8 +34,10 @@ export type TypingTestProps = {
   mode: Mode;
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
   paragraph: Paragraph | undefined;
+  getRandomParagraph: (difficulty: Difficulty) => void;
 };
 
-export interface TypingStatsProps {
+export type TypingStatsProps = {
   mode: Mode;
-}
+  time?: number;
+};

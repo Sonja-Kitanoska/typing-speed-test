@@ -1,14 +1,15 @@
 import type { TypingStatsProps } from "../../types/types";
 
-const TypingStats = ({ mode }: TypingStatsProps) => {
-  const time = mode === "Timed(60s)" ? 60 : 0;
-
+const TypingStats = ({
+  mode,
+  time = mode === "Timed(60s)" ? 60 : 0,
+}: TypingStatsProps) => {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
 
   const formattedTime =
     mode === "Timed(60s)"
-      ? `0:${time.toString().padStart(2, "0")}`
+      ? `0:${time?.toString().padStart(2, "0")}`
       : `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
   return (
