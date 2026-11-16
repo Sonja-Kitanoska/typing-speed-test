@@ -3,6 +3,9 @@ import type { TypingStatsProps } from "../../types/types";
 const TypingStats = ({
   mode,
   time = mode === "Timed(60s)" ? 60 : 0,
+  wpm,
+  accuracy,
+  correctCharacters,
 }: TypingStatsProps) => {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -17,11 +20,11 @@ const TypingStats = ({
       <div className="d-flex row pt-4 pt-md-0 text-center">
         <div className="col-4 col-lg-auto border-end border-secondary d-lg-flex align-items-center p-2">
           <p className="text-secondary mb-0">WPM:</p>
-          <p className="text-white mb-0">0</p>
+          <p className="text-white mb-0">{wpm}</p>
         </div>
         <div className="col-4 col-lg-auto border-end border-secondary d-lg-flex align-items-center gap-1 gap-md-0 p-2">
           <p className="text-secondary mb-0">Accuracy:</p>
-          <p className="text-white mb-0">100 %</p>
+          <p className="text-white mb-0">{accuracy} %</p>
         </div>
         <div className="col-4 col-lg-auto d-lg-flex align-items-center p-2">
           <p className="text-secondary mb-0">Time:</p>

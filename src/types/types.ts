@@ -40,4 +40,16 @@ export type TypingTestProps = {
 export type TypingStatsProps = {
   mode: Mode;
   time?: number;
+  wpm: number;
+  accuracy: number;
+  correctCharacters: number;
+};
+
+export type TestResult = {
+  wpm: number;
+  accuracy: number;
+  correctCharacters: number;
+  incorrectCharacters: number;
+  previousBest: number | null; // useful on the high score page
+  date: string;
 };

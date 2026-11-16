@@ -3,6 +3,12 @@ import Navbar from "../../components/Navbar/Navbar";
 import TestControls from "../../components/TestControls/TestControls";
 import TypingStats from "../../components/TypingStats/TypingStats";
 import type { TypingTestProps } from "../../types/types";
+import {
+  getPersonalBest,
+  saveLastResult,
+  setPersonalBest,
+} from "../../utils/storage";
+import { useNavigate } from "react-router-dom";
 
 const TypingTest = ({
   difficulty,
@@ -15,6 +21,9 @@ const TypingTest = ({
   const [userInput, setUserInput] = useState("");
   const [time, setTime] = useState(mode === "Timed(60s)" ? 60 : 0);
   const [isRunning, setIsRunning] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
+
+  const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -40,6 +49,7 @@ const TypingTest = ({
         if (mode === "Timed(60s)") {
           if (prevTime <= 1) {
             setIsRunning(false);
+            setIsFinished(true);
             return 0;
           }
 
@@ -55,17 +65,79 @@ const TypingTest = ({
 
   const restartTest = () => {
     setIsRunning(false);
-
+    setIsFinished(false);
     setTime(mode === "Timed(60s)" ? 60 : 0);
     getRandomParagraph(difficulty);
     setUserInput("");
   };
 
+  // Original paragraph
+  const targetText = paragraph?.text ?? "";
+
+  // Correct characters
+  const correctCharacters = userInput
+    .split("")
+    .filter((char, index) => char === targetText[index]).length;
+
+  const incorrectCharacters = userInput
+    .split("")
+    .filter((char, index) => char !== targetText[index]).length;
+
+  // Total characters typed
+  const totalCharacters = userInput.length;
+
+  // Accuracy
+  const accuracy =
+    totalCharacters > 0
+      ? Math.round((correctCharacters / totalCharacters) * 100)
+      : 100;
+
+  // Elapsed time
+  const elapsedTime = mode === "Timed(60s)" ? 60 - time : time;
+
+  // WPM
+  const wpm =
+    elapsedTime > 0
+      ? Math.round(correctCharacters / 5 / (elapsedTime / 60))
+      : 0;
+
+  useEffect(() => {
+    if (!isFinished) return;
+
+    const previousBest = getPersonalBest();
+
+    saveLastResult({
+      wpm,
+      accuracy,
+      correctCharacters,
+      incorrectCharacters,
+      previousBest,
+      date: new Date().toISOString(),
+    });
+
+    if (previousBest === null) {
+      setPersonalBest(wpm);
+      navigate("/baseline-completed");
+    } else if (wpm > previousBest) {
+      setPersonalBest(wpm);
+      navigate("/high-score");
+    } else {
+      navigate("/test-completed");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFinished]);
+
   return (
     <div className="bg-black min-vh-100 d-flex flex-column">
       <Navbar />
       <div className="d-lg-flex p-2">
-        <TypingStats mode={mode} time={time} />
+        <TypingStats
+          mode={mode}
+          time={time}
+          wpm={wpm}
+          accuracy={accuracy}
+          correctCharacters={correctCharacters}
+        />
         <TestControls
           difficulty={difficulty}
           setDifficulty={setDifficulty}
@@ -102,6 +174,12 @@ const TypingTest = ({
             type="text"
             value={userInput}
             maxLength={paragraph?.text.length}
+            onKeyDown={(e) => {
+              if (e.key === "Backspace" || e.key === "Delete") {
+                e.preventDefault();
+              }
+            }}
+            onPaste={(e) => e.preventDefault()}
             onChange={(e) => {
               const value = e.target.value;
 
@@ -114,6 +192,7 @@ const TypingTest = ({
 
               if (value.length === paragraph?.text.length) {
                 setIsRunning(false);
+                setIsFinished(true);
               }
             }}
             autoFocus

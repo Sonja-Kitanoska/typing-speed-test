@@ -4,6 +4,9 @@ import Homepage from "./pages/Homepage/Homepage";
 import { useEffect, useState } from "react";
 import type { Difficulty, Mode, Paragraph, ParagraphData } from "./types/types";
 import TypingTest from "./pages/TypingTest/TypingTest";
+import BaselineCompleted from "./pages/BaselineCompleted/BaselineCompleted";
+import TestCompleted from "./pages/TestCompleted/TestCompleted";
+import Highscore from "./pages/HighScore/Highscore";
 
 function App() {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
@@ -78,6 +81,11 @@ function App() {
             />
           }
         />
+        <Route path="/baseline-completed" element={<BaselineCompleted />} />
+
+        <Route path="/test-completed" element={<TestCompleted />} />
+
+        <Route path="/high-score" element={<Highscore />} />
       </Routes>
     </BrowserRouter>
   );
