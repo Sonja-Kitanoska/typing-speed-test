@@ -35,14 +35,16 @@ export type TypingTestProps = {
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
   paragraph: Paragraph | undefined;
   getRandomParagraph: (difficulty: Difficulty) => void;
+  personalBest: number | null;
+  updatePersonalBest: (wpm: number) => void;
 };
 
 export type TypingStatsProps = {
   mode: Mode;
   time?: number;
-  wpm: number;
-  accuracy: number;
-  correctCharacters: number;
+  wpm?: number;
+  accuracy?: number;
+  correctCharacters?: number;
 };
 
 export type TestResult = {

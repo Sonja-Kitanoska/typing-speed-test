@@ -1,13 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import TestControls from "../../components/TestControls/TestControls";
 import TypingStats from "../../components/TypingStats/TypingStats";
 import type { TypingTestProps } from "../../types/types";
-import {
-  getPersonalBest,
-  saveLastResult,
-  setPersonalBest,
-} from "../../utils/storage";
+import { getPersonalBest, saveLastResult } from "../../utils/storage";
 import { useNavigate } from "react-router-dom";
 
 const TypingTest = ({
@@ -17,6 +12,7 @@ const TypingTest = ({
   setMode,
   paragraph,
   getRandomParagraph,
+  updatePersonalBest,
 }: TypingTestProps) => {
   const [userInput, setUserInput] = useState("");
   const [time, setTime] = useState(mode === "Timed(60s)" ? 60 : 0);
@@ -116,10 +112,10 @@ const TypingTest = ({
     });
 
     if (previousBest === null) {
-      setPersonalBest(wpm);
+      updatePersonalBest(wpm);
       navigate("/baseline-completed");
     } else if (wpm > previousBest) {
-      setPersonalBest(wpm);
+      updatePersonalBest(wpm);
       navigate("/high-score");
     } else {
       navigate("/test-completed");
@@ -128,8 +124,7 @@ const TypingTest = ({
   }, [isFinished]);
 
   return (
-    <div className="bg-black min-vh-100 d-flex flex-column">
-      <Navbar />
+    <div className="bg-black flex-grow-1 d-flex flex-column">
       <div className="d-lg-flex p-2">
         <TypingStats
           mode={mode}

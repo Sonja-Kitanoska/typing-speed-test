@@ -7,6 +7,8 @@ import TypingTest from "./pages/TypingTest/TypingTest";
 import BaselineCompleted from "./pages/BaselineCompleted/BaselineCompleted";
 import TestCompleted from "./pages/TestCompleted/TestCompleted";
 import Highscore from "./pages/HighScore/Highscore";
+import Layout from "./components/Layout/Layout";
+import { getPersonalBest, setPersonalBest } from "./utils/storage";
 
 function App() {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
@@ -17,6 +19,15 @@ function App() {
     hard: [],
   });
   const [paragraph, setParagraph] = useState<Paragraph | undefined>(undefined);
+
+  const [personalBestState, setPersonalBestState] = useState<number | null>(
+    () => getPersonalBest(),
+  );
+
+  const updatePersonalBest = (wpm: number) => {
+    setPersonalBest(wpm);
+    setPersonalBestState(wpm);
+  };
 
   useEffect(() => {
     const fetchParagraphs = async () => {
@@ -56,36 +67,41 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Homepage
-              difficulty={difficulty}
-              setDifficulty={setDifficulty}
-              mode={mode}
-              setMode={setMode}
-              paragraph={paragraph}
-            />
-          }
-        />
-        <Route
-          path="/typing-test"
-          element={
-            <TypingTest
-              difficulty={difficulty}
-              setDifficulty={setDifficulty}
-              mode={mode}
-              setMode={setMode}
-              paragraph={paragraph}
-              getRandomParagraph={getRandomParagraph}
-            />
-          }
-        />
-        <Route path="/baseline-completed" element={<BaselineCompleted />} />
+        <Route path="/" element={<Layout personalBest={personalBestState} />}>
+          <Route
+            index
+            path="/"
+            element={
+              <Homepage
+                difficulty={difficulty}
+                setDifficulty={setDifficulty}
+                mode={mode}
+                setMode={setMode}
+                paragraph={paragraph}
+              />
+            }
+          />
+          <Route
+            path="/typing-test"
+            element={
+              <TypingTest
+                difficulty={difficulty}
+                setDifficulty={setDifficulty}
+                mode={mode}
+                setMode={setMode}
+                paragraph={paragraph}
+                getRandomParagraph={getRandomParagraph}
+                personalBest={personalBestState}
+                updatePersonalBest={updatePersonalBest}
+              />
+            }
+          />
+          <Route path="/baseline-completed" element={<BaselineCompleted />} />
 
-        <Route path="/test-completed" element={<TestCompleted />} />
+          <Route path="/test-completed" element={<TestCompleted />} />
 
-        <Route path="/high-score" element={<Highscore />} />
+          <Route path="/high-score" element={<Highscore />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
