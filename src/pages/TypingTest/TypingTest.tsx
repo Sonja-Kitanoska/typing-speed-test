@@ -20,20 +20,21 @@ const TypingTest = ({
   const [isFinished, setIsFinished] = useState(false);
 
   const navigate = useNavigate();
+  const controlsLocked = userInput.length > 0;
 
   const inputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     inputRef.current?.focus();
 
-    const handleClick = () => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("select, option")) return;
       inputRef.current?.focus();
     };
 
     document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
+    return () => document.removeEventListener("click", handleClick);
   }, []);
 
   // Timer
@@ -66,6 +67,9 @@ const TypingTest = ({
     getRandomParagraph(difficulty);
     setUserInput("");
   };
+  useEffect(() => {
+    setTime(mode === "Timed(60s)" ? 60 : 0);
+  }, [mode]);
 
   // Original paragraph
   const targetText = paragraph?.text ?? "";
@@ -138,7 +142,7 @@ const TypingTest = ({
           setDifficulty={setDifficulty}
           mode={mode}
           setMode={setMode}
-          disabled={true}
+          disabled={controlsLocked}
         />
       </div>
 

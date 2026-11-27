@@ -5,7 +5,7 @@ const TestControls = ({
   setDifficulty,
   mode,
   setMode,
-  disabled,
+  disabled = false,
 }: TestcontrolsProps) => {
   const difficulties: { label: string; value: Difficulty }[] = [
     { label: "Easy", value: "easy" },
@@ -22,12 +22,12 @@ const TestControls = ({
           <select
             className="form-select d-flex fs-6 p-1 bg-dark text-white"
             aria-label="Large select example"
-            defaultValue={difficulty}
-            disabled={disabled}
+            value={difficulty}
             onChange={(e) => {
               const selectedDifficulty = e.target.value as Difficulty;
               setDifficulty(selectedDifficulty);
             }}
+            disabled={disabled}
           >
             {difficulties.map((item) => (
               <option key={item.value} value={item.value}>
@@ -42,6 +42,7 @@ const TestControls = ({
             aria-label="Large select example"
             onChange={(e) => setMode(e.target.value as Mode)}
             disabled={disabled}
+            value={mode}
           >
             {modes.map((item) => (
               <option key={item} value={item}>
